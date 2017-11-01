@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "item.h"
+#include "Enemy.h"
 using namespace std;
 using std::vector;
 
@@ -16,8 +17,9 @@ private:
 	string exitString();
     vector <Item> itemsInRoom;
 
-
 public:
+    vector <Enemy*> enemiesInRoom;
+    string itemsToString();
     int numberOfItems();
 	Room(string description);
 	void setExits(Room *north, Room *east, Room *south, Room *west);
@@ -25,7 +27,10 @@ public:
 	string longDescription();
 	Room* nextRoom(string direction);
     void addItem(Item *inItem);
-    string displayItem();
+    void setEnemy(Enemy *newEn);
+    void setEnemy(int level, int attribute, string name, int hp);
+    bool hasEnemy();
+    vector<string> displayItems();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
 };

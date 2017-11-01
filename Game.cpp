@@ -54,7 +54,7 @@ void Game::createRooms()  {
     f->setExits(NULL, g,    NULL, h);
     g->setExits(NULL, NULL, b,    f);
     h->setExits(NULL, f,    NULL, NULL);
-    i->setExits(NULL, f,    NULL, NULL);
+    i->setExits(c   , d,    NULL, NULL);
     t->setExits(NULL, NULL, NULL, NULL);
 
     currentRoom = i;

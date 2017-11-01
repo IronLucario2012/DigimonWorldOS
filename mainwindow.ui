@@ -32,7 +32,7 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="map_tab">
      <attribute name="title">
       <string>Map</string>
      </attribute>
@@ -143,7 +143,7 @@
        <set>Qt::NoTextInteraction</set>
       </property>
      </widget>
-     <widget class="QListView" name="inventory">
+     <widget class="QListWidget" name="inventory">
       <property name="geometry">
        <rect>
         <x>190</x>
@@ -177,7 +177,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QListView" name="itemsOnGround">
+     <widget class="QListWidget" name="itemsOnGround">
       <property name="geometry">
        <rect>
         <x>260</x>
@@ -203,7 +203,10 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="combat_tab">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <attribute name="title">
       <string>Combat</string>
      </attribute>

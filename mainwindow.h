@@ -17,8 +17,8 @@ public:
     ~MainWindow();
 
     void welcomeMessage();
-
-     Game *game;
+    void enterRoom();
+    Game *game;
 
 private slots:
     void on_goNorthButton_released();

@@ -1,6 +1,5 @@
 #include "Room.h"
 
-
 Room::Room(string description) {
 	this->description = description;
 }
@@ -21,7 +20,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-	return "room = " + description + ".\n" + displayItem() + exitString();
+    return "room = " + description + ".\n" + exitString();
 }
 
 string Room::exitString() {
@@ -41,26 +40,50 @@ Room* Room::nextRoom(string direction) {
 }
 
 void Room::addItem(Item *inItem) {
-    //cout <<endl;
-    //cout << "Just added" + inItem->getLongDescription();
     itemsInRoom.push_back(*inItem);
 }
 
-string Room::displayItem() {
+void Room::setEnemy(Enemy *newEn) {
+    enemiesInRoom.push_back(newEn);
+}
+
+bool Room::hasEnemy() {
+    bool out = false;
+    if(enemiesInRoom.size()>0)
+        out = true;
+    return out;
+}
+
+void Room::setEnemy(int level, int attribute, string name, int hp) {
+    enemiesInRoom.push_back(new Enemy(level, attribute, name, hp));
+}
+
+vector<string> Room::displayItems() {
+    vector<string> items;
+
+    for(int i=0;i<itemsInRoom.size();i++)
+        items.push_back(itemsInRoom[i].getName());
+    return items;
+}
+
+string Room::itemsToString()
+{
     string tempString = "items in room = ";
     int sizeItems = (itemsInRoom.size());
-    if (itemsInRoom.size() < 1) {
-        tempString = "no items in room";
-        }
-    else if (itemsInRoom.size() > 0) {
-       int x = (0);
-        for (int n = sizeItems; n > 0; n--) {
-            tempString = tempString + itemsInRoom[x].getName() + "  " ;
-            x++;
+    if(sizeItems<1)
+        tempString = "No items in room.";
+    else
+        if(sizeItems>0)
+        {
+            int x = 0;
+            for(int i=sizeItems;i>0;i--)
+            {
+                tempString += itemsInRoom[x].getName() + " ";
+                x++;
             }
         }
     return tempString;
-    }
+}
 
 int Room::numberOfItems() {
     return itemsInRoom.size();

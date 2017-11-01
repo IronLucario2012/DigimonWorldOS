@@ -27,13 +27,15 @@ SOURCES += \
     Game.cpp \
     item.cpp \
     mainwindow.cpp \
-    Room.cpp
+    Room.cpp \
+    Enemy.cpp
 
 HEADERS += \
     Game.h \
     item.h \
     mainwindow.h \
-    Room.h
+    Room.h \
+    Enemy.h
 
 FORMS += \
     mainwindow.ui
