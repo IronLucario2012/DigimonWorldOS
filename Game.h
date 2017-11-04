@@ -20,8 +20,7 @@ private:
 public:
     Game();
     Room *currentRoom;
-	string go(string direction);
-    //string teleport();
+    string go(string direction);
     string showMap();
     string getCurrentRoomDescription();
     string pickUp(string name);

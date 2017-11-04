@@ -33,6 +33,12 @@ private slots:
 
     void on_inventory_doubleClicked(const QModelIndex &index);
 
+    void on_Ranged_released();
+
+    void on_Heavy_released();
+
+    void on_Light_released();
+
 private:
     Ui::MainWindow *ui;
 };

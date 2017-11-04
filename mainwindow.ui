@@ -30,7 +30,7 @@
      <string notr="true">background-color : lightgrey</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="map_tab">
      <attribute name="title">
@@ -202,6 +202,22 @@
        <enum>Qt::IgnoreAction</enum>
       </property>
      </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>336</x>
+        <y>182</y>
+        <width>111</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="combat_tab">
      <property name="enabled">
@@ -210,6 +226,99 @@
      <attribute name="title">
       <string>Combat</string>
      </attribute>
+     <widget class="QLabel" name="textOutputC">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>451</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : black; color : white</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Ranged">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>190</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ranged</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Light">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>230</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Light</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Heavy">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>230</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Heavy</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="roomImageC">
+      <property name="geometry">
+       <rect>
+        <x>246</x>
+        <y>122</y>
+        <width>201</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="enemyImageC">
+      <property name="geometry">
+       <rect>
+        <x>276</x>
+        <y>152</y>
+        <width>141</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

@@ -76,3 +76,18 @@ void MainWindow::enterRoom()
     }
     ui->itemsOnGround->addItems(item);
 }
+
+void MainWindow::on_Ranged_released()
+{
+
+}
+
+void MainWindow::on_Heavy_released()
+{
+
+}
+
+void MainWindow::on_Light_released()
+{
+
+}
