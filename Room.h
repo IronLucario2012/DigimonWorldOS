@@ -18,10 +18,12 @@ private:
     vector <Item> itemsInRoom;
 
 public:
+    bool boss;
+    string enemyString();
     vector <Enemy*> enemiesInRoom;
     string itemsToString();
     int numberOfItems();
-	Room(string description);
+    Room(string description, bool bossRoom=false);
 	void setExits(Room *north, Room *east, Room *south, Room *west);
 	string shortDescription();
 	string longDescription();

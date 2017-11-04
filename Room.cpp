@@ -1,8 +1,9 @@
 #include "Room.h"
 
-Room::Room(string description)
+Room::Room(string description, bool bossRoom)
 {
 	this->description = description;
+    this->boss = bossRoom;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west)
@@ -24,7 +25,22 @@ string Room::shortDescription()
 
 string Room::longDescription()
 {
-    return "You are in room " + description + ".\n" + exitString();
+    return "You are in room " + description + ".\n" + exitString()+ ".\n"+enemyString();
+}
+
+string Room::enemyString()
+{
+    string out = "";
+    if(enemiesInRoom.size()!=0)
+    {
+        out += "Enemy(s) present:\n";
+        for(int i=0;i<enemiesInRoom.size();i++)
+        {
+            out += enemiesInRoom[i]->getName() + " - HP: ";
+            out += enemiesInRoom[i]->getHP() + "\n";
+        }
+    }
+    return out;
 }
 
 string Room::exitString()

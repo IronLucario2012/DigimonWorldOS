@@ -15,3 +15,21 @@ Enemy::Enemy(int nlevel, int nattribute, string nname, int nhp)
     name = nname;
     hp = nhp;
 }
+string Enemy::getName()
+{
+    return name;
+}
+string Enemy::toString()
+{
+    string out = "Name: " + name + ", Level: " + levels[level] + ", Attribute: " + attributes[attribute];
+    return out;
+}
+void Enemy::changeHP(int c)
+{
+    hp += c;
+}
+string Enemy::getHP()
+{
+    string out = to_string(hp);
+    return out;
+}

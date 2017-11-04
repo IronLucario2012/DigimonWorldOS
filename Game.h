@@ -11,7 +11,6 @@ class Game {
 private:
 
     vector<Room*> roomList;
-    vector<Item*> inventory;
     void createRooms();
     void createItems();
     void displayItems();
@@ -19,6 +18,8 @@ private:
 
 public:
     Game();
+    bool checkInventoryForKey();
+    vector<Item*> inventory;
     Room *currentRoom;
     string go(string direction);
     string showMap();

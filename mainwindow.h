@@ -16,7 +16,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void welcomeMessage();
     void enterRoom();
     Game *game;
 
@@ -38,6 +37,8 @@ private slots:
     void on_Heavy_released();
 
     void on_Light_released();
+
+    void on_debugCombatWin_released();
 
 private:
     Ui::MainWindow *ui;

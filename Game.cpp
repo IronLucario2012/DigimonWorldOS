@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.game = &temp;
     w.show();
-    w.welcomeMessage();
+    w.enterRoom();
     return a.exec();
 }
 
@@ -32,6 +32,7 @@ void Game::createRooms()
     b = new Room("b");
     roomList.push_back(b);
 	c = new Room("c");
+        c->setEnemy(2,0,"Renamon",10);
     roomList.push_back(c);
 	d = new Room("d");
     roomList.push_back(d);
@@ -41,7 +42,7 @@ void Game::createRooms()
     roomList.push_back(f);
 	g = new Room("g");
     roomList.push_back(g);
-	h = new Room("h");
+    h = new Room("h", true);
     roomList.push_back(h);
 	i = new Room("i");
     roomList.push_back(i);
@@ -76,17 +77,33 @@ string Game::printInventory()
 
 string Game::go(string direction)
 {
-	//Make the direction lowercase
-	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
 	//Move to the next room
 	Room* nextRoom = currentRoom->nextRoom(direction);
 	if (nextRoom == NULL)
         return(currentRoom->longDescription() + "\ndirection null");
 	else
 	{
-		currentRoom = nextRoom;
-		return currentRoom->longDescription();
+        if(nextRoom->boss&&!checkInventoryForKey())
+        {
+            return ""+currentRoom->longDescription()+"\nThe door to room h is locked. You need a key.";
+        }
+        else
+        {
+            currentRoom = nextRoom;
+            return currentRoom->longDescription();
+        }
 	}
+}
+
+bool Game::checkInventoryForKey()
+{
+    bool found = false;
+    for(int i=0;i<inventory.size()&&!found;i++)
+    {
+        if(inventory[i]->getName().compare("key")==0)
+            found=true;
+    }
+    return found;
 }
 
 string Game::showMap()
