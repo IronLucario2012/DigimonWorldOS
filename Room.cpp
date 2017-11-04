@@ -1,10 +1,12 @@
 #include "Room.h"
 
-Room::Room(string description) {
+Room::Room(string description)
+{
 	this->description = description;
 }
 
-void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
+void Room::setExits(Room *north, Room *east, Room *south, Room *west)
+{
 	if (north != NULL)
 		exits["north"] = north;
 	if (east != NULL)
@@ -15,23 +17,29 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 		exits["west"] = west;
 }
 
-string Room::shortDescription() {
+string Room::shortDescription()
+{
 	return description;
 }
 
-string Room::longDescription() {
-    return "room = " + description + ".\n" + exitString();
+string Room::longDescription()
+{
+    return "You are in room " + description + ".\n" + exitString();
 }
 
-string Room::exitString() {
-	string returnString = "\nexits =";
-	for (map<string, Room*>::iterator i = exits.begin(); i != exits.end(); i++)
+string Room::exitString()
+{
+    string returnString = "There are exits to the";
+    for (map<string, Room*>::iterator i = exits.begin(); i != exits.end();i++)
+    {
 		// Loop through map
-		returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
+        returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
+    }
 	return returnString;
 }
 
-Room* Room::nextRoom(string direction) {
+Room* Room::nextRoom(string direction)
+{
 	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
 	if (next == exits.end())
 		return NULL; // if exits.end() was returned, there's no room in that direction.
@@ -39,26 +47,31 @@ Room* Room::nextRoom(string direction) {
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
-void Room::addItem(Item *inItem) {
+void Room::addItem(Item *inItem)
+{
     itemsInRoom.push_back(*inItem);
 }
 
-void Room::setEnemy(Enemy *newEn) {
+void Room::setEnemy(Enemy *newEn)
+{
     enemiesInRoom.push_back(newEn);
 }
 
-bool Room::hasEnemy() {
+bool Room::hasEnemy()
+{
     bool out = false;
     if(enemiesInRoom.size()>0)
         out = true;
     return out;
 }
 
-void Room::setEnemy(int level, int attribute, string name, int hp) {
+void Room::setEnemy(int level, int attribute, string name, int hp)
+{
     enemiesInRoom.push_back(new Enemy(level, attribute, name, hp));
 }
 
-vector<string> Room::displayItems() {
+vector<string> Room::displayItems()
+{
     vector<string> items;
 
     for(int i=0;i<itemsInRoom.size();i++)
@@ -85,27 +98,25 @@ string Room::itemsToString()
     return tempString;
 }
 
-int Room::numberOfItems() {
+int Room::numberOfItems()
+{
     return itemsInRoom.size();
 }
 
-int Room::isItemInRoom(string inString)
+int Room::takeItem(string inString)
 {
     int sizeItems = (itemsInRoom.size());
-    if (itemsInRoom.size() < 1) {
-        return false;
-        }
-    else if (itemsInRoom.size() > 0) {
        int x = (0);
-        for (int n = sizeItems; n > 0; n--) {
+        for (int n = sizeItems; n > 0; n--)
+        {
             // compare inString with short description
             int tempFlag = inString.compare( itemsInRoom[x].getName());
-            if (tempFlag == 0) {
+            if (tempFlag == 0)
+            {
                 itemsInRoom.erase(itemsInRoom.begin()+x);
                 return x;
             }
             x++;
-            }
         }
     return -1;
 }

@@ -5,7 +5,8 @@ using namespace std;
 #include "Game.h"
 #include "mainwindow.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     QApplication a(argc, argv);
     Game temp;
     MainWindow w;
@@ -15,11 +16,13 @@ int main(int argc, char *argv[]) {
     return a.exec();
 }
 
-Game::Game() {
+Game::Game()
+{
 	createRooms();
 }
 
-void Game::createRooms()  {
+void Game::createRooms()
+{
 
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *t;
 
@@ -60,46 +63,6 @@ void Game::createRooms()  {
     currentRoom = i;
 }
 
-/**
- * Given a command, process (that is: execute) the command.
- * If this command ends the ZorkUL game, true is returned, otherwise false is
- * returned.
- */
- /*bool Game::processCommand(Command command) {
-
-    else if (commandWord.compare("take") == 0)
-    {
-       	if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
-        }
-        else
-         if (command.hasSecondWord()) {
-        cout << "you're trying to take " + command.getSecondWord() << endl;
-        int location = currentRoom->isItemInRoom(command.getSecondWord());
-        if (location  < 0 )
-            cout << "item is not in room" << endl;
-        else
-            cout << "item is in room" << endl;
-            cout << "index number " << + location << endl;
-            cout << endl;
-            cout << currentRoom->longDescription() << endl;
-        }
-    }
-
-    else if (commandWord.compare("put") == 0)
-    {
-   if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
-        }
-        else
-            if (command.hasSecondWord()) {
-            cout << "you're adding " + command.getSecondWord() << endl;
-            itemsInRoom.push_Back;
-        }
-    }
-}*/
-/** COMMANDS **/
-
 string Game::printInventory()
 {
     string out="";
@@ -111,16 +74,8 @@ string Game::printInventory()
     return out;
 }
 
-/*string Game::teleport() {
-
-    int destination = rand() %roomList.size();
-
-    currentRoom = roomList[destination];
-
-    return currentRoom->longDescription();
-}*/
-
-string Game::go(string direction) {
+string Game::go(string direction)
+{
 	//Make the direction lowercase
 	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
 	//Move to the next room
@@ -154,30 +109,3 @@ string Game::getCurrentRoomDescription()
 {
     return currentRoom->longDescription();
 }
-
-string Game::pickUp(string name)
-{
-
-
-
-
-
-
-
-
-    return "You picked up the " + name;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-

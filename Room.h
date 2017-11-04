@@ -31,7 +31,7 @@ public:
     void setEnemy(int level, int attribute, string name, int hp);
     bool hasEnemy();
     vector<string> displayItems();
-    int isItemInRoom(string inString);
+    int takeItem(string inString);
     void removeItemFromRoom(int location);
 };
 

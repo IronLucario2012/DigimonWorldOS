@@ -1,6 +1,7 @@
 #include "item.h"
 
-Item::Item (string inName) {
+Item::Item (string inName)
+{
     name = inName;
 }
 
