@@ -48,12 +48,21 @@ void MainWindow::on_itemsOnGround_doubleClicked(const QModelIndex &index)
 {
     ui->inventory->addItem(ui->itemsOnGround->takeItem(index.row()));
     game->currentRoom->takeItem(ui->inventory->item(ui->inventory->count()-1)->text().toStdString());
+    game->inventory.push_back(new Item(ui->inventory->item(ui->inventory->count()-1)->text().toStdString()));
 }
 
 void MainWindow::on_inventory_doubleClicked(const QModelIndex &index)
 {
     ui->itemsOnGround->addItem(ui->inventory->takeItem(index.row()));
     game->currentRoom->addItem(new Item(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString()));
+    int indexInv = -1;
+    for(int i=0;i<game->inventory.size();i++)
+    {
+        if(game->inventory[i]->getName().compare(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString())==0)
+            indexInv = i;
+    }
+    if(indexInv>=0)
+        game->inventory.erase(game->inventory.begin() + indexInv);
 }
 
 void MainWindow::enterRoom()

@@ -1,8 +1,9 @@
 #include "Room.h"
 
-Room::Room(string description)
+Room::Room(string description, bool bossRoom)
 {
 	this->description = description;
+    this->boss = bossRoom;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west)
