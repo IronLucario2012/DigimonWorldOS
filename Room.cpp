@@ -36,7 +36,7 @@ string Room::enemyString()
     {
         out += "Enemy digimon present:\n";
         out += inRoom[0].getName() + " - HP: ";
-        out += inRoom[0].getHP() + "\n";
+        out += inRoom[0].getHPString() + "\n";
     }
     return out;
 }
@@ -69,7 +69,8 @@ void Room::addItem(Item *inItem)
 void Room::setEnemy(Digimon newEn)
 {
     inRoom.push_back(newEn);
-    //int i = inRoom.size();cout << "Added " + newEn.getName() + " to the list in room " + this->shortDescription() + ". Size is currently " + to_string(i) << endl;
+    int i = inRoom.size();
+    cout << "Added " + newEn.getName() + " to the list in room " + this->shortDescription() + ". Size is currently " + to_string(i) << endl;
 }
 bool Room::hasEnemy()
 {
@@ -82,10 +83,12 @@ void Room::setEnemy(int level, int attribute, string name, int hp, string img)
 {
     Digimon digi(level, attribute, name, hp, img);
     inRoom.push_back(digi);
+    int i = inRoom.size();
+    cout << "Added " + name + " to the list in room " + this->shortDescription() + ". Size is currently " + to_string(i) << endl;
 }
 void Room::removeEnemy()
 {
-    inRoom.erase(inRoom.begin());
+    inRoom.pop_back();
 }
 vector<string> Room::displayItems()
 {

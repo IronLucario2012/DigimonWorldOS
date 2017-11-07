@@ -14,9 +14,10 @@ public:
     string getName();
     const string toString();
     void changeHP(int c);
-    string getHP();
+    string getHPString();
+    int getHP();
     int rockPaperScissors(int p1, int p2);
-    string fight(int atkUsed);
+    string fight(Digimon enemy,int atkUsed);
     QPixmap getPix();
 };
 

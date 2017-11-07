@@ -15,9 +15,10 @@ private:
     void createItems();
     void displayItems();
     string printInventory();
-    Digimon* player;
+
 
 public:
+    Digimon* player;
     Game();
     bool checkInventoryForKey();
     vector<Item*> inventory;

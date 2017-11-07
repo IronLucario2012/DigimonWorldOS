@@ -23,39 +23,86 @@ Game::Game()
 
 void Game::createRooms()
 {
-    string roomPath = "C:\\Users\\jackd\\Documents\\DigimonWorldOS\\img\\room\\";
-    string digimonPath = "C:\\Users\\jackd\\Documents\\DigimonWorldOS\\img\\digimon\\";
+    string roomPath = "C:\\Users\\Jack\\Documents\\DigimonWorldOS\\img\\room\\";
+    string digimonPath = "C:\\Users\\Jack\\Documents\\DigimonWorldOS\\img\\digimon\\";
 
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i;
 
+    *player = Digimon(2,1,"Hackmon",20,"");
+
     a = new Room("a",roomPath+"a.jpg");
-        a->addItem(new Item("key"));
+        a->addItem(new Item("key","A small golden key. It opens the door for the boss room."));
     roomList.push_back(a);
     b = new Room("b",roomPath+"b.jpg");
     roomList.push_back(b);
     c = new Room("c",roomPath+"c.jpg");
-        c->setEnemy(Digimon(2,2,"Tsukaimon",10,digimonPath+"Tsukaimon.png"));
+        c->setEnemy(2,2,"Tsukaimon",10,digimonPath+"Tsukaimon.png");
     roomList.push_back(c);
+
+    cout << c->getEnemy().getName() << endl;
+    cout << c->inRoom.size() << endl;
+    for(int i=0;i<c->inRoom.size();i++)
+        cout << c->inRoom[i].getName() + "\n" << endl;
+
     d = new Room("d",roomPath+"d.jpg");
-        d->setEnemy(Digimon(2,2,"Gazimon",10,digimonPath+"Gazimon.png"));
+        d->setEnemy(2,2,"Gazimon",10,digimonPath+"Gazimon.png");
     roomList.push_back(d);
+
+    cout << c->getEnemy().getName() << endl;
+    cout << c->inRoom.size() << endl;
+    for(int i=0;i<c->inRoom.size();i++)
+        cout << c->inRoom[i].getName() + "\n" << endl;
+    cout << d->getEnemy().getName() << endl;
+    cout << d->inRoom.size() << endl;
+    for(int i=0;i<d->inRoom.size();i++)
+        cout << d->inRoom[i].getName() + "\n"  << endl;
+
+
     e = new Room("e",roomPath+"e.jpg");
     roomList.push_back(e);
     f = new Room("f",roomPath+"f.png");
     roomList.push_back(f);
     g = new Room("g",roomPath+"g.png");
-        g->setEnemy(Digimon(2,0,"Renamon",10,digimonPath+"Renamon.png"));
+        g->setEnemy(2,0,"Renamon",10,digimonPath+"Renamon.png");
     roomList.push_back(g);
+
+
+    cout << c->getEnemy().getName() << endl;
+    cout << c->inRoom.size() << endl;
+    for(int i=0;i<c->inRoom.size();i++)
+        cout << c->inRoom[i].getName() + "\n"  << endl;
+    cout << d->getEnemy().getName() << endl;
+    cout << d->inRoom.size() << endl;
+    for(int i=0;i<d->inRoom.size();i++)
+        cout << d->inRoom[i].getName() + "\n"  << endl;
+    cout << g->getEnemy().getName()  << endl;
+    cout << g->inRoom.size() << endl;
+    for(int i=0;i<g->inRoom.size();i++)
+        cout << g->inRoom[i].getName() + "\n" << endl;
+
+
     h = new Room("h",roomPath+"h.jpg", true);
-        h->setEnemy(Digimon(3,2,"Youkomon",15,digimonPath+"Youkomon.png"));
+        h->setEnemy(3,2,"Youkomon",15,digimonPath+"Youkomon.png");
     roomList.push_back(h);
     i = new Room("i",roomPath+"i.jpg");
     roomList.push_back(i);
 
     cout << c->getEnemy().getName() << endl;
+    cout << c->inRoom.size() << endl;
+    for(int i=0;i<c->inRoom.size();i++)
+        cout << c->inRoom[i].getName() + "\n"  << endl;
     cout << d->getEnemy().getName() << endl;
+    cout << d->inRoom.size() << endl;
+    for(int i=0;i<d->inRoom.size();i++)
+        cout << d->inRoom[i].getName() + "\n"  << endl;
     cout << g->getEnemy().getName() << endl;
+    cout << g->inRoom.size() << endl;
+    for(int i=0;i<g->inRoom.size();i++)
+        cout << g->inRoom[i].getName() + "\n"  << endl;
     cout << h->getEnemy().getName() << endl;
+    cout << h->inRoom.size() << endl;
+    for(int i=0;i<h->inRoom.size();i++)
+        cout << h->inRoom[i].getName() + "\n"  << endl;
 
 //             (N,    E,    S,    W)
     a->setExits(NULL, b,    d,    NULL);

@@ -106,19 +106,67 @@ void MainWindow::enterRoom()
     }
 }
 
-void MainWindow::on_Ranged_released()
-{
-
-}
-
 void MainWindow::on_Heavy_released()
 {
-
+    string out = game->player->fight(game->currentRoom->getEnemy(),0);
+    if(out.back()=='n')
+    {
+        game->currentRoom->removeEnemy();
+        ui->textOutput->setText(QString::fromStdString(out + "\n" + game->currentRoom->longDescription()));
+        enterRoom();
+    }
+    else if(out.back()=='.')
+    {
+        enterRoom();
+        ui->textOutputC->setText(QString::fromStdString(out) + "\n" + ui->textOutputC->text());
+    }
+    else
+    {
+        //TODO: Game over.
+        ui->textOutputC->setText(QString::fromStdString(out));
+    }
 }
 
 void MainWindow::on_Light_released()
 {
+    string out = game->player->fight(game->currentRoom->getEnemy(),1);
+    if(out.back()=='n')
+    {
+        game->currentRoom->removeEnemy();
+        ui->textOutput->setText(QString::fromStdString(out + "\n" + game->currentRoom->longDescription()));
+        enterRoom();
+    }
+    else if(out.back()=='.')
+    {
+        enterRoom();
+        ui->textOutputC->setText(QString::fromStdString(out) + "\n" + ui->textOutputC->text());
+    }
+    else
+    {
+        //TODO: Game over.
+        ui->textOutputC->setText(QString::fromStdString(out));
+    }
+}
 
+void MainWindow::on_Ranged_released()
+{
+    string out = game->player->fight(game->currentRoom->getEnemy(),2);
+    if(out.back()=='n')
+    {
+        game->currentRoom->removeEnemy();
+        ui->textOutput->setText(QString::fromStdString(out + "\n" + game->currentRoom->longDescription()));
+        enterRoom();
+    }
+    else if(out.back()=='.')
+    {
+        enterRoom();
+        ui->textOutputC->setText(QString::fromStdString(out) + "\n" + ui->textOutputC->text());
+    }
+    else
+    {
+        //TODO: Game over.
+        ui->textOutputC->setText(QString::fromStdString(out));
+    }
 }
 
 void MainWindow::on_debugCombatWin_released()

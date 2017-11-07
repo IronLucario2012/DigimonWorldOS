@@ -18,9 +18,10 @@ private:
 	map<string, Room*> exits;
 	string exitString();
     vector <Item> itemsInRoom;
-    vector<Digimon> inRoom;
+
 
 public:
+    vector<Digimon> inRoom;
     Room(string description, string imgPath="", bool bossRoom=false);
     bool boss;
     string enemyString();

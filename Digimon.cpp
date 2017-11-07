@@ -31,17 +31,21 @@ string Digimon::getName()
 }
 const string Digimon::toString()
 {
-    string out = "Name: " + name + ", Level: " + levels[level] + ", Attribute: " + attributes[attribute] + ", HP: " + getHP();
+    string out = "Name: " + name + ", Level: " + levels[level] + ", Attribute: " + attributes[attribute] + ", HP: " + getHPString();
     return out;
 }
 void Digimon::changeHP(int c)
 {
     hp += c;
 }
-string Digimon::getHP()
+string Digimon::getHPString()
 {
     string out = to_string(hp);
     return out;
+}
+int Digimon::getHP()
+{
+    return hp;
 }
 QPixmap Digimon::getPix()
 {
@@ -63,7 +67,7 @@ int Digimon::rockPaperScissors(int p1, int p2)
     return out;
 }
 
-string Digimon::fight(int atkUsed)
+string Digimon::fight(Digimon enemy, int atkUsed)
 {
     string out = "You attacked " + this->getName() + " with a " + attacks[atkUsed] + " attack.\n";
     int enemyAtk = 0; //TODO: Make a random number
@@ -74,11 +78,28 @@ string Digimon::fight(int atkUsed)
 
     switch(result)
     {
-    case 0: out += "You both take damage!";
+    case 0: out += "You both take 3 damage!";
+            changeHP(-3);
+            enemy.changeHP(-3);
+        break;
+    case 1: out += enemy.getName() + " takes 3 damage!";
+            enemy.changeHP(-3);
+        break;
+    case 2: out += "You take 3 damage!";
+            changeHP(-3);
+        break;
     }
 
+    out += "Your hp is " + getHPString() + ".\n" + enemy.getName() + "'s hp is " + enemy.getHPString() + ".\n";
 
-
+    if(hp < 1)
+    {
+        out += "\nYou died";
+    }
+    else if(enemy.getHP() < 1)
+    {
+        out += "\nYou won";
+    }
     return out;
 }
 
