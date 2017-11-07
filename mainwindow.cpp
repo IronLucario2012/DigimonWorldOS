@@ -58,10 +58,15 @@ void MainWindow::on_inventory_doubleClicked(const QModelIndex &index)
         game->inventory.erase(game->inventory.begin() + indexInv);
 }
 
-void MainWindow::enterRoom()
+void MainWindow::startMessage()
 {
     ui->textOutput->setText(QString::fromStdString(game->currentRoom->longDescription()));
     ui->floorMap->setText(QString::fromStdString(game->showMap()));
+    enterRoom();
+}
+
+void MainWindow::enterRoom()
+{
     if(game->currentRoom->hasEnemy())
     {
         ui->tabs->setCurrentIndex(1);
@@ -87,6 +92,18 @@ void MainWindow::enterRoom()
       ui->itemsOnGround->takeItem(0);
     }
     ui->itemsOnGround->addItems(item);
+
+    ui->roomImage->setPixmap(game->currentRoom->getPix());
+    ui->roomImageC->setPixmap(game->currentRoom->getPix());
+    if(game->currentRoom->hasEnemy())
+    {
+        ui->enemyImageC->setVisible(true);
+        ui->enemyImageC->setPixmap(game->currentRoom->getEnemy().getPix());
+    }
+    else
+    {
+        ui->enemyImageC->setVisible(false);
+    }
 }
 
 void MainWindow::on_Ranged_released()
@@ -106,6 +123,7 @@ void MainWindow::on_Light_released()
 
 void MainWindow::on_debugCombatWin_released()
 {
-    game->currentRoom->enemiesInRoom.clear();
+    game->currentRoom->removeEnemy();
+    ui->textOutput->setText(QString::fromStdString(game->currentRoom->longDescription()));
     enterRoom();
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>481</width>
-    <height>376</height>
+    <width>768</width>
+    <height>655</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>471</width>
-      <height>321</height>
+      <width>751</width>
+      <height>611</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -205,17 +205,17 @@
        <enum>Qt::IgnoreAction</enum>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="roomImage">
       <property name="geometry">
        <rect>
-        <x>336</x>
-        <y>182</y>
-        <width>111</width>
-        <height>101</height>
+        <x>340</x>
+        <y>180</y>
+        <width>400</width>
+        <height>400</height>
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Box</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="text">
        <string/>
@@ -224,7 +224,7 @@
     </widget>
     <widget class="QWidget" name="combat_tab">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="styleSheet">
       <string notr="true">QTabWidget::tab:disabled { width: 0; height: 0; margin: 0; padding: 0; border: none; }</string>
@@ -298,12 +298,12 @@
        <rect>
         <x>246</x>
         <y>122</y>
-        <width>201</width>
-        <height>161</height>
+        <width>400</width>
+        <height>400</height>
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Box</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="text">
        <string/>
@@ -312,14 +312,14 @@
      <widget class="QLabel" name="enemyImageC">
       <property name="geometry">
        <rect>
-        <x>276</x>
-        <y>152</y>
-        <width>141</width>
-        <height>101</height>
+        <x>346</x>
+        <y>222</y>
+        <width>200</width>
+        <height>200</height>
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Box</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="text">
        <string/>
@@ -346,7 +346,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>481</width>
+     <width>768</width>
      <height>21</height>
     </rect>
    </property>

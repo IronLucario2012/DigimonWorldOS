@@ -12,42 +12,50 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.game = &temp;
     w.show();
-    w.enterRoom();
+    w.startMessage();
     return a.exec();
 }
 
 Game::Game()
 {
-	createRooms();
+    createRooms();
 }
 
 void Game::createRooms()
 {
+    string roomPath = "C:\\Users\\jackd\\Documents\\DigimonWorldOS\\img\\room\\";
+    string digimonPath = "C:\\Users\\jackd\\Documents\\DigimonWorldOS\\img\\digimon\\";
 
-    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *t;
+    Room *a, *b, *c, *d, *e, *f, *g, *h, *i;
 
-    a = new Room("a");
+    a = new Room("a",roomPath+"a.jpg");
         a->addItem(new Item("key"));
     roomList.push_back(a);
-    b = new Room("b");
+    b = new Room("b",roomPath+"b.jpg");
     roomList.push_back(b);
-	c = new Room("c");
-        c->setEnemy(2,0,"Renamon",10);
+    c = new Room("c",roomPath+"c.jpg");
+        c->setEnemy(Digimon(2,2,"Tsukaimon",10,digimonPath+"Tsukaimon.png"));
     roomList.push_back(c);
-	d = new Room("d");
+    d = new Room("d",roomPath+"d.jpg");
+        d->setEnemy(Digimon(2,2,"Gazimon",10,digimonPath+"Gazimon.png"));
     roomList.push_back(d);
-	e = new Room("e");
+    e = new Room("e",roomPath+"e.jpg");
     roomList.push_back(e);
-	f = new Room("f");
+    f = new Room("f",roomPath+"f.png");
     roomList.push_back(f);
-	g = new Room("g");
+    g = new Room("g",roomPath+"g.png");
+        g->setEnemy(Digimon(2,0,"Renamon",10,digimonPath+"Renamon.png"));
     roomList.push_back(g);
-    h = new Room("h", true);
+    h = new Room("h",roomPath+"h.jpg", true);
+        h->setEnemy(Digimon(3,2,"Youkomon",15,digimonPath+"Youkomon.png"));
     roomList.push_back(h);
-	i = new Room("i");
+    i = new Room("i",roomPath+"i.jpg");
     roomList.push_back(i);
-    t = new Room("t");
-    roomList.push_back(t);
+
+    cout << c->getEnemy().getName() << endl;
+    cout << d->getEnemy().getName() << endl;
+    cout << g->getEnemy().getName() << endl;
+    cout << h->getEnemy().getName() << endl;
 
 //             (N,    E,    S,    W)
     a->setExits(NULL, b,    d,    NULL);
@@ -59,7 +67,6 @@ void Game::createRooms()
     g->setExits(NULL, NULL, b,    f);
     h->setExits(NULL, f,    NULL, NULL);
     i->setExits(c   , d,    NULL, NULL);
-    t->setExits(NULL, NULL, NULL, NULL);
 
     currentRoom = i;
 }
@@ -116,9 +123,6 @@ string Game::showMap()
     map += " |       |       | \n";
     map += " |       |       | \n";
     map += "[i] --- [d] --- [e]\n";
-    map += "                   \n";
-    map += "                   \n";
-    map += "        [t]        \n";
 return map;
 }
 

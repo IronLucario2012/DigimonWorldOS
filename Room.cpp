@@ -1,9 +1,10 @@
 #include "Room.h"
 
-Room::Room(string description, bool bossRoom)
+Room::Room(string description, string imgPath, bool bossRoom)
 {
 	this->description = description;
     this->boss = bossRoom;
+    this->imgPath = imgPath;
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west)
@@ -31,14 +32,11 @@ string Room::longDescription()
 string Room::enemyString()
 {
     string out = "";
-    if(enemiesInRoom.size()!=0)
+    if(hasEnemy())
     {
-        out += "Enemy(s) present:\n";
-        for(int i=0;i<enemiesInRoom.size();i++)
-        {
-            out += enemiesInRoom[i]->getName() + " - HP: ";
-            out += enemiesInRoom[i]->getHP() + "\n";
-        }
+        out += "Enemy digimon present:\n";
+        out += inRoom[0].getName() + " - HP: ";
+        out += inRoom[0].getHP() + "\n";
     }
     return out;
 }
@@ -68,24 +66,27 @@ void Room::addItem(Item *inItem)
     itemsInRoom.push_back(*inItem);
 }
 
-void Room::setEnemy(Enemy *newEn)
+void Room::setEnemy(Digimon newEn)
 {
-    enemiesInRoom.push_back(newEn);
+    inRoom.push_back(newEn);
+    //int i = inRoom.size();cout << "Added " + newEn.getName() + " to the list in room " + this->shortDescription() + ". Size is currently " + to_string(i) << endl;
 }
-
 bool Room::hasEnemy()
 {
     bool out = false;
-    if(enemiesInRoom.size()>0)
+    if(inRoom.size()>0)
         out = true;
     return out;
 }
-
-void Room::setEnemy(int level, int attribute, string name, int hp)
+void Room::setEnemy(int level, int attribute, string name, int hp, string img)
 {
-    enemiesInRoom.push_back(new Enemy(level, attribute, name, hp));
+    Digimon digi(level, attribute, name, hp, img);
+    inRoom.push_back(digi);
 }
-
+void Room::removeEnemy()
+{
+    inRoom.erase(inRoom.begin());
+}
 vector<string> Room::displayItems()
 {
     vector<string> items;
@@ -136,4 +137,32 @@ int Room::takeItem(string inString)
         }
     return -1;
 }
+
+void Room::setPix(string pix)
+{
+   imgPath = pix;
+}
+QPixmap Room::getPix()
+{
+   QPixmap roomPix = QString::fromStdString(imgPath);
+   QPixmap finalRoomPix = roomPix.scaled(QSize(400,400), Qt::KeepAspectRatio);
+   return finalRoomPix;
+}
+
+Digimon Room::getEnemy()
+{
+    return inRoom[0];
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

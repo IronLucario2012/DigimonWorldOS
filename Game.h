@@ -15,6 +15,7 @@ private:
     void createItems();
     void displayItems();
     string printInventory();
+    Digimon* player;
 
 public:
     Game();
