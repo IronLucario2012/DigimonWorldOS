@@ -37,6 +37,10 @@ const string Digimon::toString()
 void Digimon::changeHP(int c)
 {
     hp += c;
+    if(hp<0)
+        hp=0;
+    if(hp>level*10)
+        hp=level*10;
 }
 string Digimon::getHPString()
 {
@@ -121,17 +125,29 @@ string Digimon::fight(Digimon* enemy, int atkUsed)
     return out;
 }
 
-void Digimon::addXP()
+string Digimon::addXP()
 {
+    string out = "";
     xp++;
     hp += 4;
-    if(xp>=3)
+    if(xp==3)
     {
         level = 3;
         name = "Bao Hackmon";
         xp = 0;
         hp = 30;
+        out += "You Digivolved to the Champion level digimon " + name + "!\n";
+        out += "You feel reinvigorated and stronger than ever. Hp restored to 30.\n";
     }
+    else
+    {
+        out += "You now have " + to_string(xp) + " xp.\n";
+        if(hp==level*10)
+            out += "You rested after the battle and your hp refilled to " + to_string(level*10) + ".\n";
+        else
+            out += "You rested after the battle and regained 4 hp.\n";
+    }
+    return out;
 }
 
 

@@ -88,7 +88,7 @@ vector<string> Room::displayItems()
 {
     vector<string> items;
 
-    for(int i=0;i<itemsInRoom.size();i++)
+    for(size_t i=0;i<itemsInRoom.size();i++)
         items.push_back(itemsInRoom[i].getName());
     return items;
 }
@@ -141,7 +141,7 @@ void Room::setPix(string pix)
 }
 QPixmap Room::getPix()
 {
-   QPixmap roomPix = QString::fromStdString(imgPath);
+   QPixmap roomPix(QString::fromStdString(imgPath));
    QPixmap finalRoomPix = roomPix.scaled(QSize(400,400), Qt::KeepAspectRatio);
    return finalRoomPix;
 }

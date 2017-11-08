@@ -49,7 +49,7 @@ void MainWindow::on_inventory_doubleClicked(const QModelIndex &index)
     ui->itemsOnGround->addItem(ui->inventory->takeItem(index.row()));
     game->currentRoom->addItem(new Item(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString()));
     int indexInv = -1;
-    for(int i=0;i<game->inventory.size();i++)
+    for(size_t i=0;i<game->inventory.size();i++)
     {
         if(game->inventory[i]->getName().compare(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString())==0)
             indexInv = i;
@@ -62,6 +62,7 @@ void MainWindow::startMessage()
 {
     ui->textOutput->setText(QString::fromStdString(game->currentRoom->longDescription()));
     ui->floorMap->setText(QString::fromStdString(game->showMap()));
+    ui->enemyImageC->setAttribute(Qt::WA_TranslucentBackground);
     updateUI();
 }
 
@@ -84,7 +85,7 @@ void MainWindow::updateUI()
     }
     QStringList item;
     vector<string> items = game->currentRoom->displayItems();
-    for(int i=0;i<items.size();i++)
+    for(size_t i=0;i<items.size();i++)
     {
         string temp = items[i];
         item << QString::fromStdString(temp);
@@ -131,8 +132,7 @@ void MainWindow::fightResults(string out)
     if(out.back()=='n')
     {
         game->currentRoom->removeEnemy();
-        ui->textOutput->setText(QString::fromStdString(out + ".\nYou rest for a while. 4 hp recovered.\n" + game->currentRoom->longDescription()));
-        game->player->addXP();
+        ui->textOutput->setText(QString::fromStdString(out + ".\n"+ game->player->addXP() + game->currentRoom->longDescription()));
         updateUI();
         if(game->currentRoom->boss)
             gameOver(0);

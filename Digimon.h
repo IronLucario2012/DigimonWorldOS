@@ -19,7 +19,7 @@ public:
     int rockPaperScissors(int p1, int p2);
     string fight(Digimon* enemy,int atkUsed);
     QPixmap getPix();
-    void addXP();
+    string addXP();
     int getAttribute();
     int getLevel();
 private:

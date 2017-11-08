@@ -23,35 +23,36 @@ Game::Game()
 
 void Game::createRooms()
 {
-    string roomPath = "C:\\Users\\jackd\\Documents\\DigimonWorldOS\\img\\room\\";
-    string digimonPath = "C:\\Users\\jackd\\Documents\\DigimonWorldOS\\img\\digimon\\";
+    string roomPath = "../DigimonWorldOS/img/room";
+    string digimonPath = "../DigimonWorldOS/img/digimon";
+
 
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i;
 
     player = new Digimon(2,1,"Hackmon",20,"");
 
-    a = new Room("a",roomPath+"a.jpg");
+    a = new Room("a",roomPath+"/a.jpg");
         a->addItem(new Item("boss key"));
     roomList.push_back(a);
-    b = new Room("b",roomPath+"b.jpg");
+    b = new Room("b",roomPath+"/b.jpg");
     roomList.push_back(b);
-    c = new Room("c",roomPath+"c.jpg");
-        c->setEnemy(new Digimon(2,2,"Tsukaimon",10,digimonPath+"Tsukaimon.png"));
+    c = new Room("c",roomPath+"/c.jpg");
+        c->setEnemy(new Digimon(2,2,"Tsukaimon",10,digimonPath+"/Tsukaimon.png"));
     roomList.push_back(c);
-    d = new Room("d",roomPath+"d.jpg");
-        d->setEnemy(new Digimon(2,2,"Gazimon",15,digimonPath+"Gazimon.png"));
+    d = new Room("d",roomPath+"/d.jpg");
+        d->setEnemy(new Digimon(2,2,"Gazimon",15,digimonPath+"/Gazimon.png"));
     roomList.push_back(d);
-    e = new Room("e",roomPath+"e.jpg");
+    e = new Room("e",roomPath+"/e.jpg");
     roomList.push_back(e);
-    f = new Room("f",roomPath+"f.png");
+    f = new Room("f",roomPath+"/f.png");
     roomList.push_back(f);
-    g = new Room("g",roomPath+"g.png");
-        g->setEnemy(new Digimon(2,0,"Renamon",10,digimonPath+"Renamon.png"));
+    g = new Room("g",roomPath+"/g.png");
+        g->setEnemy(new Digimon(2,0,"Renamon",10,digimonPath+"/Renamon.png"));
     roomList.push_back(g);
-    h = new Room("h",roomPath+"h.jpg", true);
-        h->setEnemy(new Digimon(3,2,"Youkomon",30,digimonPath+"Youkomon.png"));
+    h = new Room("h",roomPath+"/h.jpg", true);
+        h->setEnemy(new Digimon(3,2,"Youkomon",30,digimonPath+"/Youkomon.png"));
     roomList.push_back(h);
-    i = new Room("i",roomPath+"i.jpg");
+    i = new Room("i",roomPath+"/i.jpg");
     roomList.push_back(i);
 
 //             (N,    E,    S,    W)
@@ -102,7 +103,7 @@ string Game::go(string direction)
 bool Game::checkInventoryForKey()
 {
     bool found = false;
-    for(int i=0;i<inventory.size()&&!found;i++)
+    for(size_t i=0;i<inventory.size()&&!found;i++)
     {
         if(inventory[i]->getName().compare("boss key")==0)
             found=true;
