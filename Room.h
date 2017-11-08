@@ -32,10 +32,10 @@ public:
 	string longDescription();
 	Room* nextRoom(string direction);
     void addItem(Item *inItem);
-    void setEnemy(Digimon newEn);
-    void setEnemy(int level, int attribute, string name, int hp, string img);
+    void setEnemy(Digimon *newEn);
     bool hasEnemy();
     Digimon getEnemy();
+    Digimon* getEnemyPointer();
     void removeEnemy();
     vector<string> displayItems();
     int takeItem(string inString);

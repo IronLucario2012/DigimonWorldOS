@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "Game.h"
+#include "gameoverwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +18,9 @@ public:
     ~MainWindow();
 
     void startMessage();
-    void enterRoom();
+    void updateUI();
+    void fightResults(string out);
+    void gameOver(int victory);
     Game *game;
 
 private slots:

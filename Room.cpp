@@ -5,6 +5,7 @@ Room::Room(string description, string imgPath, bool bossRoom)
 	this->description = description;
     this->boss = bossRoom;
     this->imgPath = imgPath;
+    this->inRoom = vector<Digimon>(0);
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west)
@@ -66,11 +67,11 @@ void Room::addItem(Item *inItem)
     itemsInRoom.push_back(*inItem);
 }
 
-void Room::setEnemy(Digimon newEn)
+void Room::setEnemy(Digimon *newEn)
 {
-    inRoom.push_back(newEn);
-    int i = inRoom.size();
-    cout << "Added " + newEn.getName() + " to the list in room " + this->shortDescription() + ". Size is currently " + to_string(i) << endl;
+    inRoom.push_back(*newEn);
+    //int i = inRoom.size();
+    //cout << "Added " + newEn->getName() + " to the list in room " + this->shortDescription() + ". Size is currently " + to_string(i) << endl;
 }
 bool Room::hasEnemy()
 {
@@ -78,13 +79,6 @@ bool Room::hasEnemy()
     if(inRoom.size()>0)
         out = true;
     return out;
-}
-void Room::setEnemy(int level, int attribute, string name, int hp, string img)
-{
-    Digimon digi(level, attribute, name, hp, img);
-    inRoom.push_back(digi);
-    int i = inRoom.size();
-    cout << "Added " + name + " to the list in room " + this->shortDescription() + ". Size is currently " + to_string(i) << endl;
 }
 void Room::removeEnemy()
 {
@@ -154,7 +148,12 @@ QPixmap Room::getPix()
 
 Digimon Room::getEnemy()
 {
-    return inRoom[0];
+    return inRoom.at(0);
+}
+
+Digimon* Room::getEnemyPointer()
+{
+    return &inRoom[0];
 }
 
 

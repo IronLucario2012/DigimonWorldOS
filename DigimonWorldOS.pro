@@ -28,14 +28,17 @@ SOURCES += \
     item.cpp \
     mainwindow.cpp \
     Room.cpp \
-    Digimon.cpp
+    Digimon.cpp \
+    gameoverwindow.cpp
 
 HEADERS += \
     Game.h \
     item.h \
     mainwindow.h \
     Room.h \
-    Digimon.h
+    Digimon.h \
+    gameoverwindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    gameoverwindow.ui

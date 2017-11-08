@@ -9,11 +9,9 @@ using namespace std;
 class Item {
 private:
     string name;
-    string description;
 public:
-    Item (string name, string description="");
+    Item (string name);
     string getName();
-    string getDescription();
 };
 
 #endif /*ITEM_H_*/

@@ -16,25 +16,25 @@ MainWindow::~MainWindow()
 void MainWindow::on_goNorthButton_released()
 {
     ui->textOutput->setText(QString::fromStdString(game->go("north")));
-    enterRoom();
+    updateUI();
 }
 
 void MainWindow::on_goWestButton_released()
 {
     ui->textOutput->setText(QString::fromStdString(game->go("west")));
-    enterRoom();
+    updateUI();
 }
 
 void MainWindow::on_goEastButton_released()
 {
     ui->textOutput->setText(QString::fromStdString(game->go("east")));
-    enterRoom();
+    updateUI();
 }
 
 void MainWindow::on_goSouthButton_released()
 {
     ui->textOutput->setText(QString::fromStdString(game->go("south")));
-    enterRoom();
+    updateUI();
 }
 
 void MainWindow::on_itemsOnGround_doubleClicked(const QModelIndex &index)
@@ -62,11 +62,13 @@ void MainWindow::startMessage()
 {
     ui->textOutput->setText(QString::fromStdString(game->currentRoom->longDescription()));
     ui->floorMap->setText(QString::fromStdString(game->showMap()));
-    enterRoom();
+    updateUI();
 }
 
-void MainWindow::enterRoom()
+void MainWindow::updateUI()
 {
+    ui->hpDisplay->setText(QString::fromStdString("HP: "+game->player->getHPString()));
+    ui->hpDisplayC->setText(QString::fromStdString("HP: "+game->player->getHPString()));
     if(game->currentRoom->hasEnemy())
     {
         ui->tabs->setCurrentIndex(1);
@@ -108,70 +110,57 @@ void MainWindow::enterRoom()
 
 void MainWindow::on_Heavy_released()
 {
-    string out = game->player->fight(game->currentRoom->getEnemy(),0);
-    if(out.back()=='n')
-    {
-        game->currentRoom->removeEnemy();
-        ui->textOutput->setText(QString::fromStdString(out + "\n" + game->currentRoom->longDescription()));
-        enterRoom();
-    }
-    else if(out.back()=='.')
-    {
-        enterRoom();
-        ui->textOutputC->setText(QString::fromStdString(out) + "\n" + ui->textOutputC->text());
-    }
-    else
-    {
-        //TODO: Game over.
-        ui->textOutputC->setText(QString::fromStdString(out));
-    }
+    string out = game->player->fight(game->currentRoom->getEnemyPointer(),0);
+    fightResults(out);
 }
 
 void MainWindow::on_Light_released()
 {
-    string out = game->player->fight(game->currentRoom->getEnemy(),1);
-    if(out.back()=='n')
-    {
-        game->currentRoom->removeEnemy();
-        ui->textOutput->setText(QString::fromStdString(out + "\n" + game->currentRoom->longDescription()));
-        enterRoom();
-    }
-    else if(out.back()=='.')
-    {
-        enterRoom();
-        ui->textOutputC->setText(QString::fromStdString(out) + "\n" + ui->textOutputC->text());
-    }
-    else
-    {
-        //TODO: Game over.
-        ui->textOutputC->setText(QString::fromStdString(out));
-    }
+    string out = game->player->fight(game->currentRoom->getEnemyPointer(),1);
+    fightResults(out);
 }
 
 void MainWindow::on_Ranged_released()
 {
-    string out = game->player->fight(game->currentRoom->getEnemy(),2);
+    string out = game->player->fight(game->currentRoom->getEnemyPointer(),2);
+    fightResults(out);
+}
+
+void MainWindow::fightResults(string out)
+{
     if(out.back()=='n')
     {
         game->currentRoom->removeEnemy();
-        ui->textOutput->setText(QString::fromStdString(out + "\n" + game->currentRoom->longDescription()));
-        enterRoom();
+        ui->textOutput->setText(QString::fromStdString(out + ".\nYou rest for a while. 4 hp recovered.\n" + game->currentRoom->longDescription()));
+        game->player->addXP();
+        updateUI();
+        if(game->currentRoom->boss)
+            gameOver(0);
     }
     else if(out.back()=='.')
     {
-        enterRoom();
-        ui->textOutputC->setText(QString::fromStdString(out) + "\n" + ui->textOutputC->text());
+        updateUI();
+        ui->textOutputC->setText(QString::fromStdString(out)/* + "\n" + ui->textOutputC->text()*/);
     }
     else
     {
-        //TODO: Game over.
-        ui->textOutputC->setText(QString::fromStdString(out));
+        ui->textOutputC->setText(QString::fromStdString(out+"."));
+        gameOver(1);
     }
 }
 
 void MainWindow::on_debugCombatWin_released()
 {
     game->currentRoom->removeEnemy();
+    game->player->addXP();
     ui->textOutput->setText(QString::fromStdString(game->currentRoom->longDescription()));
-    enterRoom();
+    updateUI();
+}
+
+void MainWindow::gameOver(int victory)
+{
+    GameOverWindow w;
+    w.show();
+    w.setMessage(victory);
+    w.exec();
 }
