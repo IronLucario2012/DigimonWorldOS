@@ -16,8 +16,7 @@ class Room {
 private:
 	string name;
     string imgPath;
-	map<string, Room*> exits;
-	string exitString();
+    map<string, Room*> exits;
     vector <Item> itemsInRoom;
     vector<Digimon> inRoom;
     bool boss;
@@ -27,7 +26,6 @@ public:
     Room(string name, string imgPath="", bool bossRoom=false);
     bool isBoss();
     string enemyString();
-    string itemsToString();
     int numberOfItems();
 	void setExits(Room *north, Room *east, Room *south, Room *west);
 	string shortDescription();
@@ -44,6 +42,7 @@ public:
     void removeItemFromRoom(int location);
     void setPix(string pix);
     QPixmap getPix();
+    bool hasExit(string direction);
 };
 
 #endif

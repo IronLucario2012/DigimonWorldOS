@@ -16,12 +16,12 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-Game::Game()
+Game::Game()//Default constructor
 {
     createRooms();
 }
 
-void Game::createRooms()
+void Game::createRooms()//Setting up the game
 {
     string roomPath = "../DigimonWorldOS/img/room";
     string digimonPath = "../DigimonWorldOS/img/digimon";
@@ -29,10 +29,13 @@ void Game::createRooms()
 
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i;
 
-    player = new Digimon(2,1,"Hackmon",20,"");
+    player = new Digimon(2,1,"Hackmon",20,"");//Making the player
+
+    //Creating the maze and populating it with enemies and items
 
     a = new Room("a",roomPath+"/a.jpg");
         a->addItem(new Item("boss key"));
+        a->setEnemy(new Digimon(2,2,"Gazimon",15,digimonPath+"/Gazimon.png"));
     roomList.push_back(a);
     b = new Room("b",roomPath+"/b.jpg");
     roomList.push_back(b);
@@ -40,14 +43,13 @@ void Game::createRooms()
         c->setEnemy(new Digimon(2,2,"Tsukaimon",10,digimonPath+"/Tsukaimon.png"));
     roomList.push_back(c);
     d = new Room("d",roomPath+"/d.jpg");
-        d->setEnemy(new Digimon(2,2,"Gazimon",15,digimonPath+"/Gazimon.png"));
     roomList.push_back(d);
     e = new Room("e",roomPath+"/e.jpg");
+        e->setEnemy(new Digimon(2,0,"Renamon",10,digimonPath+"/Renamon.png"));
     roomList.push_back(e);
     f = new Room("f",roomPath+"/f.png");
     roomList.push_back(f);
     g = new Room("g",roomPath+"/g.png");
-        g->setEnemy(new Digimon(2,0,"Renamon",10,digimonPath+"/Renamon.png"));
     roomList.push_back(g);
     h = new Room("h",roomPath+"/h.jpg", true);
         h->setEnemy(new Digimon(3,2,"Youkomon",30,digimonPath+"/Youkomon.png"));
@@ -66,30 +68,27 @@ void Game::createRooms()
     h->setExits(NULL, f,    NULL, NULL);
     i->setExits(c   , d,    NULL, NULL);
 
-    currentRoom = i;
+    currentRoom = i;//Setting the starting location
 }
 
 string Game::go(string direction)
 {
-	//Move to the next room
+    //If the door isn't locked or you have a key, move to the next room
 	Room* nextRoom = currentRoom->nextRoom(direction);
-	if (nextRoom == NULL)
-        return(currentRoom->longDescription() + "\ndirection null");
-	else
-	{
-        if(nextRoom->isBoss()&&!checkInventoryForKey())
-        {
-            return ""+currentRoom->longDescription()+"\nThe door to room h is locked. You need a key.";
-        }
-        else
-        {
-            currentRoom = nextRoom;
-            return currentRoom->longDescription();
-        }
-	}
+    string out = "";
+    if(nextRoom->isBoss()&&!checkInventoryForKey())
+    {
+        out = currentRoom->longDescription()+"\nThe door to room h is locked. You need a key.";
+    }
+    else
+    {
+        currentRoom = nextRoom;
+        out = currentRoom->longDescription();
+    }
+    return out;
 }
 
-bool Game::checkInventoryForKey()
+bool Game::checkInventoryForKey()//Checks if the inventory contains a key
 {
     bool found = false;
     for(size_t i=0;i<inventory.size()&&!found;i++)
@@ -100,7 +99,7 @@ bool Game::checkInventoryForKey()
     return found;
 }
 
-string Game::showMap()
+string Game::showMap()//Returns a string that shows the map of this floor
 {
     string map = "";
     map += "[h] -|- [f] --- [g]\n";
@@ -113,22 +112,22 @@ string Game::showMap()
 return map;
 }
 
-string Game::getCurrentRoomDescription()
+string Game::getCurrentRoomDescription()//Returns the description of the current room
 {
     return currentRoom->longDescription();
 }
 
-Digimon* Game::getPlayer()
+Digimon* Game::getPlayer()//Returns a pointer to the player
 {
     return player;
 }
 
-Room* Game::getCurrentRoom()
+Room* Game::getCurrentRoom()//Returns a pointer to the current room
 {
     return currentRoom;
 }
 
-vector<Item*>* Game::getInventory()
+vector<Item*>* Game::getInventory()//Returns a pointer to the inventory vector
 {
     vector<Item*> *inv = &inventory;
     return inv;

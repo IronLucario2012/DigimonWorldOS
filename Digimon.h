@@ -22,6 +22,9 @@ public:
     string addXP();
     int getAttribute();
     int getLevel();
+    int getXP();
+    int levelCompare(int p2);
+
 private:
     int level;//0=Fresh, 1=In-Training, 2=Rookie, 3=Champion, 4=Ultimate, 5=Mega
     int attribute;//0=Data, 1=Vaccine, 2=Virus

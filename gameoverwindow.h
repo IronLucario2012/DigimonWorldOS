@@ -16,6 +16,7 @@ public:
     ~GameOverWindow();
 
     void setMessage(int vic);
+    void reject();
 
 private slots:
     void on_OKButton_released();

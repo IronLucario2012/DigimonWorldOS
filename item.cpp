@@ -1,11 +1,11 @@
 #include "item.h"
 
-Item::Item (string inName)
+Item::Item (string inName)//Constructor
 {
     name = inName;
 }
 
-string Item::getName()
+string Item::getName()//Returns the name of the item
 {
     return name;
 }

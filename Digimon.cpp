@@ -1,14 +1,14 @@
 #include "Digimon.h"
 using namespace std;
 
-Digimon::Digimon()
+Digimon::Digimon()//Default constructor
 {
     name = "Placeholder";
     hp = 10;
     xp = 0;
 }
 
-Digimon::Digimon(int nlevel, int nattribute, string nname, int nhp, string nimg)
+Digimon::Digimon(int nlevel, int nattribute, string nname, int nhp, string nimg)//Parameterised constructor
 {
     level = nlevel;
     attribute = nattribute;
@@ -17,24 +17,24 @@ Digimon::Digimon(int nlevel, int nattribute, string nname, int nhp, string nimg)
     imgPath = nimg;
     xp = 0;
 }
-string Digimon::getName()
+string Digimon::getName()//Returns the digimon's name
 {
     return name;
 }
-int Digimon::getAttribute()
+int Digimon::getAttribute()//Returns the digimon's attribute
 {
     return attribute;
 }
-int Digimon::getLevel()
+int Digimon::getLevel()//Returns the digimon's level
 {
     return level;
 }
-const string Digimon::toString()
+const string Digimon::toString()//Returns the digimon's information as a string
 {
     string out = "Name: " + name + ", Level: " + levels[level] + ", Attribute: " + attributes[attribute] + ", HP: " + getHPString();
     return out;
 }
-void Digimon::changeHP(int c)
+void Digimon::changeHP(int c)//Changes the Digimon's HP by the given amount with controls for upper and lower bounds
 {
     hp += c;
     if(hp<0)
@@ -42,16 +42,16 @@ void Digimon::changeHP(int c)
     if(hp>level*10)
         hp=level*10;
 }
-string Digimon::getHPString()
+string Digimon::getHPString()//Returns the digimon's HP as a string
 {
     string out = to_string(hp);
     return out;
 }
-int Digimon::getHP()
+int Digimon::getHP()//Returns the digimon's HP
 {
     return hp;
 }
-QPixmap Digimon::getPix()
+QPixmap Digimon::getPix()//Returns the digimon's image at the right size
 {
     QPixmap enemyPix = QString::fromStdString(imgPath);
     QPixmap finalEnemyPix = enemyPix.scaled(QSize(200,200), Qt::KeepAspectRatio);
@@ -71,33 +71,34 @@ int Digimon::rockPaperScissors(int p1, int p2)
     return out;
 }
 
-string Digimon::fight(Digimon* enemy, int atkUsed)
+string Digimon::fight(Digimon* enemy, int atkUsed)//Takes in an enemy pointer and the attack used by the player
 {
     string out = "You attacked " + enemy->getName() + " with a " + attacks[atkUsed] + " attack.\n";
     int enemyAtk = rand()%3;
 
     out += enemy->getName() + " attacked you with a " + attacks[enemyAtk] + " attack.\n";
 
-    int result = rockPaperScissors(atkUsed,enemyAtk);
+    int result = rockPaperScissors(atkUsed,enemyAtk);//Set damage modifiers
     int attAdv = rockPaperScissors(attribute,enemy->getAttribute());
     int levelAdv = enemy->getLevel()-level;
 
     int playerDamage = -3, enemyDamage = -3;
 
-    switch(attAdv)
+    switch(attAdv)//Apply damage modifiers
     {
     case 1: playerDamage -= 1;enemyDamage += 1; break;
     case 2: playerDamage += 1;enemyDamage -= 1; break;
     default:break;
     }
-    playerDamage -= levelAdv*2;
-    enemyDamage += levelAdv*2;
-    if(playerDamage>0)
+    playerDamage += levelAdv*2;
+    enemyDamage -= levelAdv*2;
+
+    if(playerDamage>0)//Make sure the attack doesn't heal the opponent
         playerDamage = 0;
     if(enemyDamage>0)
         enemyDamage = 0;
 
-    switch(result)
+    switch(result)//Do damage and change output
     {
     case 0: out += "You both take 1 damage!";
             changeHP(-1);
@@ -113,24 +114,24 @@ string Digimon::fight(Digimon* enemy, int atkUsed)
 
     out += "\nYour hp is " + getHPString() + ".\n" + enemy->getName() + "'s hp is " + enemy->getHPString() + ".";
 
-    if(hp < 1)
+    if(hp < 1)//Checks player and enemy for death
     {
         out += "\nYou died";
-        //TODO: Game over.
     }
     else if(enemy->getHP() < 1)
     {
         out += "\nYou won";
     }
+
     return out;
 }
 
-string Digimon::addXP()
+string Digimon::addXP()//Called when the player kills an enemy
 {
     string out = "";
     xp++;
-    hp += 4;
-    if(xp==3)
+    changeHP(4);
+    if(xp==3)//If the player has enough XP, they digivolve
     {
         level = 3;
         name = "Bao Hackmon";
@@ -139,7 +140,7 @@ string Digimon::addXP()
         out += "You Digivolved to the Champion level digimon " + name + "!\n";
         out += "You feel reinvigorated and stronger than ever. Hp restored to 30.\n";
     }
-    else
+    else//Otherwise, the player is healed after each successful fight
     {
         out += "You now have " + to_string(xp) + " xp.\n";
         if(hp==level*10)
@@ -150,5 +151,17 @@ string Digimon::addXP()
     return out;
 }
 
+int Digimon::getXP()//Returns the digimon's XP
+{
+    return xp;
+}
 
-
+int Digimon::levelCompare(int p2)//Compares the player's level to the level 'p2' and gives the same format of output as rockPaperScissors
+{
+    int out = 0;
+    if(level>p2)
+        out = 1;
+    if(p2>level)
+        out = 2;
+    return out;
+}

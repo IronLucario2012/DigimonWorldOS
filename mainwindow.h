@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QScrollBar>
 #include "Game.h"
 #include "gameoverwindow.h"
 
@@ -22,7 +23,7 @@ public:
     void fightResults(string out);
     void gameOver(int victory);
     void setGame(Game* temp);
-
+    void addTextToOutput(string add);
 
 private slots:
     void on_goNorthButton_released();
@@ -46,6 +47,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Game *game;
+    string log;
 };
 
 #endif // MAINWINDOW_H

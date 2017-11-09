@@ -6,6 +6,7 @@ GameOverWindow::GameOverWindow(QWidget *parent) :
     ui(new Ui::GameOverWindow)
 {
     ui->setupUi(this);
+    setWindowTitle(QString::fromStdString("Game Over!"));
 }
 
 GameOverWindow::~GameOverWindow()
@@ -18,7 +19,12 @@ void GameOverWindow::on_OKButton_released()
     exit(EXIT_SUCCESS);
 }
 
-void GameOverWindow::setMessage(int vic)
+void GameOverWindow::reject()//If the 'X' button is clicked
+{
+    exit(EXIT_SUCCESS);
+}
+
+void GameOverWindow::setMessage(int vic)//Sets the 'game over' message
 {
     if(vic==0)
         ui->gameOverMessage->setText(QString::fromStdString("Game Over!\nYou Won!"));
