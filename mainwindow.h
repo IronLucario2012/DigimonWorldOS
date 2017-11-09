@@ -21,7 +21,8 @@ public:
     void updateUI();
     void fightResults(string out);
     void gameOver(int victory);
-    Game *game;
+    void setGame(Game* temp);
+
 
 private slots:
     void on_goNorthButton_released();
@@ -42,10 +43,9 @@ private slots:
 
     void on_Light_released();
 
-    void on_debugCombatWin_released();
-
 private:
     Ui::MainWindow *ui;
+    Game *game;
 };
 
 #endif // MAINWINDOW_H

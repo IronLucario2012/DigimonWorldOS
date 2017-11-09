@@ -10,23 +10,24 @@ using namespace std;
 class Game {
 private:
 
+    Digimon* player;
+    Room* currentRoom;
     vector<Room*> roomList;
+    vector<Item*> inventory;
     void createRooms();
     void createItems();
     void displayItems();
-    string printInventory();
-
 
 public:
-    Digimon* player;
+
     Game();
     bool checkInventoryForKey();
-    vector<Item*> inventory;
-    Room *currentRoom;
     string go(string direction);
     string showMap();
     string getCurrentRoomDescription();
-    string pickUp(string name);
+    Digimon* getPlayer();
+    Room* getCurrentRoom();
+    vector<Item*>* getInventory();
 };
 
 #endif /*GAME_H_*/

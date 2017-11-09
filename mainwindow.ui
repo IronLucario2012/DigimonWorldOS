@@ -351,19 +351,6 @@
        <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="debugCombatWin">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>420</y>
-        <width>101</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>debugCombatWin</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="hpDisplayC">
       <property name="geometry">
        <rect>

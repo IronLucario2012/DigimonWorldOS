@@ -13,6 +13,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setGame(Game* temp)
+{
+    game = temp;
+}
+
 void MainWindow::on_goNorthButton_released()
 {
     ui->textOutput->setText(QString::fromStdString(game->go("north")));
@@ -40,27 +45,27 @@ void MainWindow::on_goSouthButton_released()
 void MainWindow::on_itemsOnGround_doubleClicked(const QModelIndex &index)
 {
     ui->inventory->addItem(ui->itemsOnGround->takeItem(index.row()));
-    game->currentRoom->takeItem(ui->inventory->item(ui->inventory->count()-1)->text().toStdString());
-    game->inventory.push_back(new Item(ui->inventory->item(ui->inventory->count()-1)->text().toStdString()));
+    game->getCurrentRoom()->takeItem(ui->inventory->item(ui->inventory->count()-1)->text().toStdString());
+    game->getInventory()->push_back(new Item(ui->inventory->item(ui->inventory->count()-1)->text().toStdString()));
 }
 
 void MainWindow::on_inventory_doubleClicked(const QModelIndex &index)
 {
     ui->itemsOnGround->addItem(ui->inventory->takeItem(index.row()));
-    game->currentRoom->addItem(new Item(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString()));
+    game->getCurrentRoom()->addItem(new Item(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString()));
     int indexInv = -1;
-    for(size_t i=0;i<game->inventory.size();i++)
+    for(size_t i=0;i<game->getInventory()->size();i++)
     {
-        if(game->inventory[i]->getName().compare(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString())==0)
+        if(game->getInventory()->at(i)->getName().compare(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString())==0)
             indexInv = i;
     }
     if(indexInv>=0)
-        game->inventory.erase(game->inventory.begin() + indexInv);
+        game->getInventory()->erase(game->getInventory()->begin() + indexInv);
 }
 
 void MainWindow::startMessage()
 {
-    ui->textOutput->setText(QString::fromStdString(game->currentRoom->longDescription()));
+    ui->textOutput->setText(QString::fromStdString(game->getCurrentRoom()->longDescription()));
     ui->floorMap->setText(QString::fromStdString(game->showMap()));
     ui->enemyImageC->setAttribute(Qt::WA_TranslucentBackground);
     updateUI();
@@ -68,14 +73,14 @@ void MainWindow::startMessage()
 
 void MainWindow::updateUI()
 {
-    ui->hpDisplay->setText(QString::fromStdString("HP: "+game->player->getHPString()));
-    ui->hpDisplayC->setText(QString::fromStdString("HP: "+game->player->getHPString()));
-    if(game->currentRoom->hasEnemy())
+    ui->hpDisplay->setText(QString::fromStdString("HP: "+game->getPlayer()->getHPString()));
+    ui->hpDisplayC->setText(QString::fromStdString("HP: "+game->getPlayer()->getHPString()));
+    if(game->getCurrentRoom()->hasEnemy())
     {
         ui->tabs->setCurrentIndex(1);
         ui->tabs->setTabEnabled(0,false);
         ui->tabs->setTabEnabled(1,true);
-        ui->textOutputC->setText(QString::fromStdString(game->currentRoom->enemyString()));
+        ui->textOutputC->setText(QString::fromStdString(game->getCurrentRoom()->enemyString()));
     }
     else
     {
@@ -84,7 +89,7 @@ void MainWindow::updateUI()
         ui->tabs->setTabEnabled(1,false);
     }
     QStringList item;
-    vector<string> items = game->currentRoom->displayItems();
+    vector<string> items = game->getCurrentRoom()->displayItems();
     for(size_t i=0;i<items.size();i++)
     {
         string temp = items[i];
@@ -96,12 +101,12 @@ void MainWindow::updateUI()
     }
     ui->itemsOnGround->addItems(item);
 
-    ui->roomImage->setPixmap(game->currentRoom->getPix());
-    ui->roomImageC->setPixmap(game->currentRoom->getPix());
-    if(game->currentRoom->hasEnemy())
+    ui->roomImage->setPixmap(game->getCurrentRoom()->getPix());
+    ui->roomImageC->setPixmap(game->getCurrentRoom()->getPix());
+    if(game->getCurrentRoom()->hasEnemy())
     {
         ui->enemyImageC->setVisible(true);
-        ui->enemyImageC->setPixmap(game->currentRoom->getEnemy().getPix());
+        ui->enemyImageC->setPixmap(game->getCurrentRoom()->getEnemy().getPix());
     }
     else
     {
@@ -111,19 +116,19 @@ void MainWindow::updateUI()
 
 void MainWindow::on_Heavy_released()
 {
-    string out = game->player->fight(game->currentRoom->getEnemyPointer(),0);
+    string out = game->getPlayer()->fight(game->getCurrentRoom()->getEnemyPointer(),0);
     fightResults(out);
 }
 
 void MainWindow::on_Light_released()
 {
-    string out = game->player->fight(game->currentRoom->getEnemyPointer(),1);
+    string out = game->getPlayer()->fight(game->getCurrentRoom()->getEnemyPointer(),1);
     fightResults(out);
 }
 
 void MainWindow::on_Ranged_released()
 {
-    string out = game->player->fight(game->currentRoom->getEnemyPointer(),2);
+    string out = game->getPlayer()->fight(game->getCurrentRoom()->getEnemyPointer(),2);
     fightResults(out);
 }
 
@@ -131,10 +136,10 @@ void MainWindow::fightResults(string out)
 {
     if(out.back()=='n')
     {
-        game->currentRoom->removeEnemy();
-        ui->textOutput->setText(QString::fromStdString(out + ".\n"+ game->player->addXP() + game->currentRoom->longDescription()));
+        game->getCurrentRoom()->removeEnemy();
+        ui->textOutput->setText(QString::fromStdString(out + ".\n"+ game->getPlayer()->addXP() + game->getCurrentRoom()->longDescription()));
         updateUI();
-        if(game->currentRoom->boss)
+        if(game->getCurrentRoom()->isBoss())
             gameOver(0);
     }
     else if(out.back()=='.')
@@ -147,14 +152,6 @@ void MainWindow::fightResults(string out)
         ui->textOutputC->setText(QString::fromStdString(out+"."));
         gameOver(1);
     }
-}
-
-void MainWindow::on_debugCombatWin_released()
-{
-    game->currentRoom->removeEnemy();
-    game->player->addXP();
-    ui->textOutput->setText(QString::fromStdString(game->currentRoom->longDescription()));
-    updateUI();
 }
 
 void MainWindow::gameOver(int victory)

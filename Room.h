@@ -7,23 +7,25 @@
 #include "item.h"
 #include "Digimon.h"
 #include <QtGui>
+
 using namespace std;
 using std::vector;
 
 class Room {
 
 private:
-	string description;
+	string name;
     string imgPath;
 	map<string, Room*> exits;
 	string exitString();
     vector <Item> itemsInRoom;
-
+    vector<Digimon> inRoom;
+    bool boss;
 
 public:
-    vector<Digimon> inRoom;
-    Room(string description, string imgPath="", bool bossRoom=false);
-    bool boss;
+
+    Room(string name, string imgPath="", bool bossRoom=false);
+    bool isBoss();
     string enemyString();
     string itemsToString();
     int numberOfItems();

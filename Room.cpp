@@ -2,7 +2,7 @@
 
 Room::Room(string description, string imgPath, bool bossRoom)
 {
-	this->description = description;
+    this->name = description;
     this->boss = bossRoom;
     this->imgPath = imgPath;
     this->inRoom = vector<Digimon>(0);
@@ -22,12 +22,12 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west)
 
 string Room::shortDescription()
 {
-	return description;
+    return name;
 }
 
 string Room::longDescription()
 {
-    return "You are in room " + description + ".\n" + exitString()+ ".\n"+enemyString();
+    return "You are in room " + name + ".\n" + exitString()+ "\n"+enemyString();
 }
 
 string Room::enemyString()
@@ -36,20 +36,25 @@ string Room::enemyString()
     if(hasEnemy())
     {
         out += "Enemy digimon present:\n";
-        out += inRoom[0].getName() + " - HP: ";
-        out += inRoom[0].getHPString() + "\n";
+        out += getEnemy().getName() + " - HP: ";
+        out += getEnemy().getHPString() + "\n";
     }
     return out;
 }
 
 string Room::exitString()
 {
-    string returnString = "There are exits to the";
+    string returnString = "There are exits to";
     for (map<string, Room*>::iterator i = exits.begin(); i != exits.end();i++)
     {
 		// Loop through map
-        returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
+        if(i!=exits.begin())
+            returnString += ",";
+        if(i==exits.end())
+            returnString += " and";
+        returnString += " the " + i->first;	// access the "first" element of the pair (direction as a string)
     }
+    returnString += ".";
 	return returnString;
 }
 
@@ -70,8 +75,6 @@ void Room::addItem(Item *inItem)
 void Room::setEnemy(Digimon *newEn)
 {
     inRoom.push_back(*newEn);
-    //int i = inRoom.size();
-    //cout << "Added " + newEn->getName() + " to the list in room " + this->shortDescription() + ". Size is currently " + to_string(i) << endl;
 }
 bool Room::hasEnemy()
 {
@@ -156,7 +159,10 @@ Digimon* Room::getEnemyPointer()
     return &inRoom[0];
 }
 
-
+bool Room::isBoss()
+{
+    return boss;
+}
 
 
 

@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Game temp;
     MainWindow w;
-    w.game = &temp;
+    w.setGame(&temp);
     w.show();
     w.startMessage();
     return a.exec();
@@ -69,17 +69,6 @@ void Game::createRooms()
     currentRoom = i;
 }
 
-string Game::printInventory()
-{
-    string out="";
-    int size = inventory.size();
-    for(int i=0;i<size;i++)
-        out += inventory.at(i)->getName() + "\n";
-    if (out=="")
-        out = "No items in inventory";
-    return out;
-}
-
 string Game::go(string direction)
 {
 	//Move to the next room
@@ -88,7 +77,7 @@ string Game::go(string direction)
         return(currentRoom->longDescription() + "\ndirection null");
 	else
 	{
-        if(nextRoom->boss&&!checkInventoryForKey())
+        if(nextRoom->isBoss()&&!checkInventoryForKey())
         {
             return ""+currentRoom->longDescription()+"\nThe door to room h is locked. You need a key.";
         }
@@ -127,4 +116,20 @@ return map;
 string Game::getCurrentRoomDescription()
 {
     return currentRoom->longDescription();
+}
+
+Digimon* Game::getPlayer()
+{
+    return player;
+}
+
+Room* Game::getCurrentRoom()
+{
+    return currentRoom;
+}
+
+vector<Item*>* Game::getInventory()
+{
+    vector<Item*> *inv = &inventory;
+    return inv;
 }
