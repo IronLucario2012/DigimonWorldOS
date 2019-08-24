@@ -57,7 +57,7 @@ void MainWindow::on_inventory_doubleClicked(const QModelIndex &index)//Takes the
     for(size_t i=0;i<game->getInventory()->size();i++)
     {
         if(game->getInventory()->at(i)->getName().compare(ui->itemsOnGround->item(ui->itemsOnGround->count()-1)->text().toStdString())==0)
-            indexInv = i;
+            indexInv = static_cast<int>(i);
     }
     if(indexInv>=0)
         game->getInventory()->erase(game->getInventory()->begin() + indexInv);

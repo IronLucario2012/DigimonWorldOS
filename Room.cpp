@@ -10,19 +10,19 @@ Room::Room(string description, string imgPath, bool bossRoom)//Constructor
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west)//Sets which rooms can be reached from this one
 {
-	if (north != NULL)
+    if (north != nullptr)
 		exits["north"] = north;
-	if (east != NULL)
+    if (east != nullptr)
 		exits["east"] = east;
-	if (south != NULL)
+    if (south != nullptr)
 		exits["south"] = south;
-	if (west != NULL)
+    if (west != nullptr)
 		exits["west"] = west;
 }
 
 bool Room::hasExit(string direction)//Returns whether a room can be reached in the given direction
 {
-    return (exits[direction] != NULL);
+    return (exits[direction] != nullptr);
 }
 
 string Room::shortDescription()//Returns the room's name
@@ -51,7 +51,7 @@ Room* Room::nextRoom(string direction)
 {
 	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
 	if (next == exits.end())
-		return NULL; // if exits.end() was returned, there's no room in that direction.
+        return nullptr; // if exits.end() was returned, there's no room in that direction.
 	return next->second; // If there is a room, remove the "second" (Room*)
 				// part of the "pair" (<string, Room*>) and return it.
 }
@@ -87,12 +87,12 @@ vector<string> Room::displayItems()//returns a string vector of the items in the
 
 int Room::numberOfItems()//Returns the number of items in the room
 {
-    return itemsInRoom.size();
+    return static_cast<int>(itemsInRoom.size());
 }
 
 int Room::takeItem(string inString)//Removes an item from the room
 {
-    int sizeItems = (itemsInRoom.size());
+    int sizeItems = static_cast<int>(itemsInRoom.size());
        int x = (0);
         for (int n = sizeItems; n > 0; n--)
         {
